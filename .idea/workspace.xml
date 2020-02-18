@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3bbb6ba3-bff2-4ddf-bfab-846f14ba29d8" name="Default" comment="Yii2 basic and database">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/synapse_consulting.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/playlist.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/repertiore.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Vagrantfile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codeception.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/commands/HelloController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/console.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/db.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/params.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/test.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/test_db.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/web.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/GenreController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/RepertoireRuntimeController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/SiteController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/SongController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docker-compose.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mail/layouts/html.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_122750_create_repertoire_runtime_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_122920_create_user_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_123549_create_genre_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_123820_create_songs_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_125305_create_requests_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/m200218_125540_create_request_songs_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/ContactForm.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/Genre.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/LoginForm.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/RepertoireRuntime.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/Song.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/User.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/search/GenreSearch.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/search/SongSearch.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirements.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_data/.gitkeep" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_output/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/AcceptanceTester.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/FunctionalTester.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/_support/UnitTester.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance.suite.yml.example" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/AboutCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/ContactCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/HomeCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/LoginCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/acceptance/_bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/bin/yii" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/bin/yii.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional.suite.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/ContactFormCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/LoginFormCest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/functional/_bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit.suite.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/_bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/ContactFormTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/LoginFormTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/unit/models/UserTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/config/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/config/vagrant-local.example.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/nginx/app.conf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/nginx/log/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/provision/always-as-root.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/provision/once-as-root.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vagrant/provision/once-as-vagrant.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/genre/_form.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/genre/create.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/genre/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/genre/update.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/genre/view.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/layouts/main.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/repertoire-runtime/_form.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/repertoire-runtime/create.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/repertoire-runtime/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/repertoire-runtime/update.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/repertoire-runtime/view.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/about.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/contact.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/error.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/login.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/song/_form.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/song/create.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/song/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/song/update.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/song/view.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/site.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/index-test.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/robots.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/widgets/Alert.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yii" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yii.bat" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
+    <include_path>
+      <path value="" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/php-diff" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/yii2-pjax" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/punycode" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/jquery" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/inputmask" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-composer" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-faker" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-gii" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-debug" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/behat/gherkin" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/codeception/phpunit-wrapper" />
+      <path value="$PROJECT_DIR$/vendor/codeception/module-yii2" />
+      <path value="$PROJECT_DIR$/vendor/codeception/lib-innerbrowser" />
+      <path value="$PROJECT_DIR$/vendor/codeception/lib-asserts" />
+      <path value="$PROJECT_DIR$/vendor/codeception/specify" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/codeception/module-filesystem" />
+      <path value="$PROJECT_DIR$/vendor/codeception/verify" />
+      <path value="$PROJECT_DIR$/vendor/codeception/stub" />
+      <path value="$PROJECT_DIR$/vendor/codeception/module-asserts" />
+      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/codeception/codeception" />
+      <path value="$PROJECT_DIR$/vendor/cebe/markdown" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="10" />
+    <option name="y" value="20" />
+    <option name="width" value="1346" />
+    <option name="height" value="688" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="repertiore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="repertiore" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3bbb6ba3-bff2-4ddf-bfab-846f14ba29d8" name="Default" comment="" />
+      <created>1582043623481</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582043623481</updated>
+      <workItem from="1582043628141" duration="589000" />
+      <workItem from="1582049165726" duration="1021000" />
+    </task>
+    <task id="LOCAL-00001" summary="Yii2 basic and database">
+      <created>1582049987529</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582049987529</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1610000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25340393" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5246711" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Yii2 basic and database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Yii2 basic and database" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

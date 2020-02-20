@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\forms\RequestForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->layout = "index-main";
+        $model = new RequestForm();
+        return $this->render('index',
+            [
+                'model' => $model
+            ]);
     }
 
     /**

@@ -53,7 +53,7 @@ class Song extends \yii\db\ActiveRecord
             'name' => 'Name',
             'url' => 'Url',
             'duration' => 'Duration',
-            'genre_id' => 'Genre ID',
+            'genre_id' => 'Genre',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

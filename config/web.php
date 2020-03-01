@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'assetManager' => [
@@ -18,7 +18,7 @@ $config = [
                     'css' => ['css/bootstrap.css', 'css/bootstrap.min.css']
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
-                    'css' => ['js/bootstrap.js', 'js/bootstrap.min.js']
+                    'js' => ['js/bootstrap.js', 'js/bootstrap.min.js']
                 ],
             ],
         ],
@@ -38,11 +38,17 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'encryption' => 'tls',
+                'host' => 'smtp.gmail.com',
+                'port' => '587',
+                'username' => 'randomemail111213@gmail.com',
+                'password' => 'SeaLord123',
+            ],
         ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= Html::encode($this->title) ?></h1>
 
             <p>
-                <?= Html::a('Create Song', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Add Song', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
         </div>
         <div class="panel-body">
@@ -32,14 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'id',
                     'name',
-                    'url:ntext',
+                    'url:raw',
                     'duration',
-                    'genre_id',
-                    //'created_at',
-                    //'updated_at',
+                    [
+                            'attribute' => 'genre',
+                        'value' => 'genre.name'
+                    ],
 
                     ['class' => 'yii\grid\ActionColumn'],
-                ],
+            ],
+                'tableOptions' => ['class' => 'table table-hover'],
             ]); ?>
 
         </div>

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "songs".
@@ -34,12 +35,20 @@ class Song extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'url', 'genre_id', 'created_at', 'updated_at'], 'required'],
+            [['name', 'url', 'genre_id'], 'required'],
             [['url'], 'string'],
             [['genre_id', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
-            [['duration'], 'string', 'max' => 255],
+//            [['duration'], 'string', 'max' => 255],
+            [['duration'], 'integer'],
             [['genre_id'], 'exist', 'skipOnError' => true, 'targetClass' => Genre::className(), 'targetAttribute' => ['genre_id' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+          TimestampBehavior::class,
         ];
     }
 

@@ -2,18 +2,20 @@
 
 namespace app\controllers;
 
+use app\models\forms\SettingsForm;
 use Yii;
-use app\models\RepertoireRuntime;
+use app\models\User;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
- * RepertoireRuntimeController implements the CRUD actions for RepertoireRuntime model.
+ * UserController implements the CRUD actions for User model.
  */
-class RepertoireRuntimeController extends Controller
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,15 +23,6 @@ class RepertoireRuntimeController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -40,13 +33,13 @@ class RepertoireRuntimeController extends Controller
     }
 
     /**
-     * Lists all RepertoireRuntime models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => RepertoireRuntime::find(),
+            'query' => User::find(),
         ]);
 
         return $this->render('index', [
@@ -55,7 +48,7 @@ class RepertoireRuntimeController extends Controller
     }
 
     /**
-     * Displays a single RepertoireRuntime model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,13 +61,13 @@ class RepertoireRuntimeController extends Controller
     }
 
     /**
-     * Creates a new RepertoireRuntime model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new RepertoireRuntime();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,7 +79,7 @@ class RepertoireRuntimeController extends Controller
     }
 
     /**
-     * Updates an existing RepertoireRuntime model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -105,8 +98,62 @@ class RepertoireRuntimeController extends Controller
         ]);
     }
 
+    public function actionSettings()
+    {
+        $model = User::find()->limit(1)->all();
+        $model = $model[0];
+
+        $settingsForm = new SettingsForm();
+        $settingsForm->attributes = $model->attributes;
+        $settingsForm->password = '';
+
+        if (Yii::$app->request->isAjax && $settingsForm->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+
+        if ($settingsForm->load(Yii::$app->request->post())) {
+            $model->name = $settingsForm->name;
+            $model->username = $settingsForm->username;
+            $model->email = $settingsForm->email;
+
+            if ($settingsForm->password != null) {
+                $model->setPassword($settingsForm->password);
+            }
+
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 6000,
+                    'icon' => 'glyphicon glyphicons-remove',
+                    'message' => 'Settings Updated Successfully.',
+                    'title' => 'Success',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+            }
+            else{
+                $errors = implode(', ', $model->getErrorSummary(true));
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 6000,
+                    'icon' => 'glyphicon glyphicons-remove',
+                    'message' => $errors,
+                    'title' => 'Error',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+            }
+        }
+
+        return $this->render('settings', [
+            'model' => $settingsForm,
+        ]);
+    }
+
     /**
-     * Deletes an existing RepertoireRuntime model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -120,20 +167,18 @@ class RepertoireRuntimeController extends Controller
     }
 
     /**
-     * Finds the RepertoireRuntime model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RepertoireRuntime the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RepertoireRuntime::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-
 }

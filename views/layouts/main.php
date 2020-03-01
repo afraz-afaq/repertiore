@@ -38,9 +38,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Genre', 'url' => ['/genre']],
+            ['label' => 'Songs', 'url' => ['/song']],
+            ['label' => 'Runtime', 'url' => ['/repertoire-runtime']],
+            ['label' => 'Requests', 'url' => ['/request']],
+            ['label' => 'Settings', 'url' => ['/user/settings']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -58,22 +60,16 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" style="padding-top: 80px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
+<!--        --><?//= Alert::widget() ?>
+        <?= \Yii::$app->view->renderFile('@app/views/layouts/message_panel.php'); ?>
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

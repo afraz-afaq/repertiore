@@ -34,8 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'contact',
             'total_runtime',
-            'created_at',
-            'updated_at',
+            [
+                'label' => 'Songs',
+                'value' => function() use($model){
+                    $songs = "";
+                    foreach ($model->requestSongs as $requestSong){
+                        $songs .= $requestSong->song->name.', ';
+                    }
+                    return $songs;
+                },
+            ],
         ],
     ]) ?>
 

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "genre".
@@ -30,9 +31,16 @@ class Genre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at', 'updated_at'], 'required'],
+            [['name'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 50],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
         ];
     }
 

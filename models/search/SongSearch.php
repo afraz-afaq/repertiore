@@ -11,6 +11,8 @@ use app\models\Song;
  */
 class SongSearch extends Song
 {
+    public $genre;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class SongSearch extends Song
     {
         return [
             [['id', 'genre_id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'url', 'duration'], 'safe'],
+            [['name', 'url', 'duration','genre'], 'safe'],
         ];
     }
 
@@ -40,7 +42,7 @@ class SongSearch extends Song
      */
     public function search($params)
     {
-        $query = Song::find();
+        $query = Song::find()->joinWith('genre');
 
         // add conditions that should always apply here
 
@@ -66,7 +68,8 @@ class SongSearch extends Song
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'duration', $this->duration]);
+            ->andFilterWhere(['like', 'duration', $this->duration])
+            ->andFilterWhere(['like', 'genre.name', $this->genre]);
 
         return $dataProvider;
     }

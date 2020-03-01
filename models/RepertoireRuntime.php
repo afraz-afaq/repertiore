@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "repertoire_runtime".
@@ -28,9 +29,15 @@ class RepertoireRuntime extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
-            [['runtime'], 'string', 'max' => 255],
+            [['runtime'], 'integer'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
         ];
     }
 

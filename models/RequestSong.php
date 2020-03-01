@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "request_songs".
@@ -32,10 +33,16 @@ class RequestSong extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['request_id', 'song_id', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
+            [['request_id', 'song_id'], 'integer'],
             [['request_id'], 'exist', 'skipOnError' => true, 'targetClass' => Request::className(), 'targetAttribute' => ['request_id' => 'id']],
             [['song_id'], 'exist', 'skipOnError' => true, 'targetClass' => Song::className(), 'targetAttribute' => ['song_id' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
         ];
     }
 

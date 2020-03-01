@@ -76,6 +76,9 @@ AppAsset::register($this);
             background: #2c2e35;
             padding: 2px 2px 0 2px;
             border-radius: 2px;
+            height: 350px;
+            width: 270px;
+            overflow-y:scroll;
         }
 
         .my-songs-header {
@@ -85,16 +88,19 @@ AppAsset::register($this);
         }
 
         .expanded-container {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
             margin-bottom: 10px;
         }
 
         .expanded-box {
-            height: 100px;
+            width: 270px;
+            height: 250px;
             background: #2c2e35;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: unset;
+            padding: 4px;
         }
 
         .btn-orange{
@@ -107,10 +113,36 @@ AppAsset::register($this);
             border-radius: 100px;
         }
 
+        iframe{
+            margin-top: 4px;
+        }
+
+        .add-to{
+            color: white;
+            padding: 3px;
+            font-size: 9px;
+            margin-left: 142px;
+            cursor: pointer;
+            font-weight: bold;
+            background: blue;
+        }
+
+        .remove-to{
+            color: white;
+            padding: 3px;
+            font-size: 9px;
+            margin-left: 200px;
+            cursor: pointer;
+            font-weight: bold;
+            background: blue;
+        }
+
+
     </style>
 </head>
 <body>
 <?php $this->beginBody() ?>
+<?= \Yii::$app->view->renderFile('@app/views/layouts/message_panel.php'); ?>
 <div class="container">
     <?= $content ?>
 </div>

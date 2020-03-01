@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "requests".
@@ -33,11 +34,18 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['full_name', 'email', 'contact', 'total_runtime', 'created_at', 'updated_at'], 'required'],
+            [['full_name', 'email', 'contact', 'total_runtime'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['full_name', 'email'], 'string', 'max' => 100],
             [['contact'], 'string', 'max' => 50],
-            [['total_runtime'], 'string', 'max' => 5],
+            [['total_runtime'], 'string', 'max' => 10],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
         ];
     }
 

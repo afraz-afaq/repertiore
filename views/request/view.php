@@ -34,17 +34,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'contact',
             'total_runtime',
-            [
-                'label' => 'Songs',
-                'value' => function() use($model){
-                    $songs = "";
-                    foreach ($model->requestSongs as $requestSong){
-                        $songs .= $requestSong->song->name.', ';
-                    }
-                    return $songs;
-                },
-            ],
         ],
     ]) ?>
+
+    <table style="border-collapse: collapse; width: 400px; text-align: center;" border="1"  >
+        <thead>
+        <th style="padding: 10px;">Songs</th>
+        <th style="padding: 10px;">Gênero</th>
+        </thead>
+        <tbody>
+        <?php foreach ($model->requestSongs as $requestSong): ?>
+            <tr>
+                <td style="padding: 10px;"><?=$requestSong->song->name?></td>
+                <td style="padding: 10px;"><?=$requestSong->song->genre->name?></td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
 
 </div>

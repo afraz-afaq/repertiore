@@ -5,10 +5,15 @@ namespace app\controllers;
 use Yii;
 use app\models\Song;
 use app\models\search\SongSearch;
+use app\models\forms\SongForm;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
+use app\config\Helper;
 
 /**
  * SongController implements the CRUD actions for Song model.
@@ -74,10 +79,78 @@ class SongController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Song();
+        $model = new SongForm();
+        $model->song_check = true;
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+
+            $model->uploaded_song = UploadedFile::getInstance($model, 'song_url');
+            $model->uploaded_cover = UploadedFile::getInstance($model, 'song_cover');
+
+            $name = trim($model->name);
+
+            $model->link_name = preg_replace('/[[:space:]]+/', '-', Helper::clean(trim($model->link_name)));
+            $time = time();
+            $linkName =  $model->link_name.'-'.$time;
+            $songModel = new Song();
+            $songModel->name = $name;
+            $songModel->artist = trim($model->artist);
+            $songModel->duration = $model->duration;
+            $songModel->genre_id = $model->genre_id;
+            $songModel->link_name = $linkName;
+            $songModel->url = $model->url;
+            if (!$songModel->url)
+                if ($model->uploaded_song) {
+                    $path = Yii::$app->getBasePath() . '/web/uploads/songs/' . $songModel->link_name . '.' . $model->uploaded_song->extension;
+                    $filename = '/uploads/songs/' . $songModel->link_name . '.' . $model->uploaded_song->extension;
+                    $model->uploaded_song->saveAs($path);
+                }
+
+            // if (!$songModel->url  && !$model->uploaded_song)
+            //     Yii::$app->getSession()->setFlash('danger', [
+            //         'type' => 'danger',
+            //         'duration' => 6000,
+            //         'icon' => 'glyphicon glyphicons-remove',
+            //         'message' => "Either upload or provide url of song",
+            //         'title' => 'Error',
+            //         'positonY' => 'top',
+            //         'positonX' => 'right'
+            //     ]);
+            // else {
+            if ($model->uploaded_cover) {
+                $path = Yii::$app->getBasePath() . '/web/uploads/song-covers/' . $songModel->link_name . '.' . $model->uploaded_cover->extension;
+                $filename = '/uploads/song-covers/' . $songModel->link_name . '.' . $model->uploaded_cover->extension;
+                $model->uploaded_cover->saveAs($path);
+            }
+            if ($songModel->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 6000,
+                    'icon' => 'glyphicon glyphicons-remove',
+                    'message' => 'Song Created Successfully.',
+                    'title' => 'Success',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['view', 'id' => $songModel->id]);
+            } else {
+                $errors = implode(', ', $songModel->getErrorSummary(true));
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 6000,
+                    'icon' => 'glyphicon glyphicons-remove',
+                    'message' => $errors,
+                    'title' => 'Error',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+            }
+            // }
         }
 
         return $this->render('create', [
@@ -114,7 +187,25 @@ class SongController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        // if (!$model->url)
+        //     unlink(Yii::$app->getBasePath() . '/web/uploads/songs/' . $model->link_name  . '.mp3');
+
+        // unlink(Yii::$app->getBasePath() . '/web/uploads/song-covers/' . $model->link_name . Helper::SONG_COVER_EXT);
+        $model->delete();
+
+
+        Yii::$app->getSession()->setFlash('success', [
+            'type' => 'success',
+            'duration' => 6000,
+            'icon' => 'glyphicon glyphicons-remove',
+            'message' => 'Song Deleted Successfully.',
+            'title' => 'Success',
+            'positonY' => 'top',
+            'positonX' => 'right'
+        ]);
+
 
         return $this->redirect(['index']);
     }

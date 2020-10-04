@@ -60,13 +60,13 @@ class SongSearch extends Song
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'songs.id' => $this->id,
             'genre_id' => $this->genre_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'songs.name', $this->name])
             ->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'duration', $this->duration])
             ->andFilterWhere(['like', 'genre.name', $this->genre]);

@@ -7,7 +7,7 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap Example</title>
+    <title>Admin - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->head() ?>
 

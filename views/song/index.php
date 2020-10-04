@@ -1,5 +1,6 @@
 <?php
 
+use app\config\Helper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -22,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
 
 
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); 
+            ?>
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
@@ -32,15 +34,44 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'id',
                     'name',
-                    'url:raw',
+                    [
+
+                        'attribute' => 'url',
+                        'label' => 'Song',
+                        'format' => 'raw',
+                        'value' => function ($model, $key, $index, $column) {
+                            if ($model->url)
+                                return $model->url;
+                            else {
+                                $song = Helper::getBaseUrl() . Helper::SONG_PATH . $model->link_name . ".mp3";
+                                return ' <audio controls preload="none">
+                                <source src="' . $song . '" type="audio/ogg">
+                                <source src="' . $song . '" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                            </audio> ';
+                            }
+                        }
+                    ],
+                    [
+                        'attribute' => 'song_cover',
+                        'label' => 'Cover',
+                        'format' => 'raw',
+                        'value' => function ($model, $key, $index, $column) {
+                            $cover = Helper::getBaseUrl() . Helper::SONG_COVER_PATH . $model->link_name  . Helper::SONG_COVER_EXT;
+                            return ' <img src="' . $cover . '" width="80"/>';
+                        }
+                    ],
                     'duration',
                     [
-                            'attribute' => 'genre',
+                        'attribute' => 'genre',
                         'value' => 'genre.name'
                     ],
 
-                    ['class' => 'yii\grid\ActionColumn'],
-            ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{view} {delete}',
+                    ],
+                ],
                 'tableOptions' => ['class' => 'table table-hover'],
             ]); ?>
 

@@ -15,7 +15,7 @@ class m200218_123820_create_songs_table extends Migration
         $this->createTable('{{%songs}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(100)->notNull(),
-            'url' => $this->text()->notNull(),
+            'url' => $this->text(),
             'duration' => $this->string(),
             'genre_id' => $this->integer()->notNull(),
             'created_at' => $this->integer(11)->notNull()->unsigned(),

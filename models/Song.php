@@ -10,7 +10,9 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property int $id
  * @property string $name
+ * @property string $artist
  * @property string $url
+ * @property string $link_name
  * @property string|null $duration
  * @property int $genre_id
  * @property int $created_at
@@ -35,11 +37,11 @@ class Song extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'url', 'genre_id'], 'required'],
-            [['url'], 'string'],
+            [['name', 'genre_id', 'duration', 'artist','link_name'], 'required'],
+            [['url', 'link_name'], 'string'],
             [['genre_id', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 100],
-//            [['duration'], 'string', 'max' => 255],
+            [['name', 'artist'], 'string', 'max' => 100],
+            //            [['duration'], 'string', 'max' => 255],
             [['duration'], 'integer'],
             [['genre_id'], 'exist', 'skipOnError' => true, 'targetClass' => Genre::className(), 'targetAttribute' => ['genre_id' => 'id']],
         ];
@@ -48,7 +50,7 @@ class Song extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-          TimestampBehavior::class,
+            TimestampBehavior::class,
         ];
     }
 
@@ -60,7 +62,9 @@ class Song extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'artist' => 'Artist',
             'url' => 'Url',
+            'link_name' => 'Link Name',
             'duration' => 'Duration',
             'genre_id' => 'Genre',
             'created_at' => 'Created At',

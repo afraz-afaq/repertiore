@@ -7,14 +7,17 @@ use app\models\Genre;
 use app\models\RepertoireRuntime;
 use app\models\Request;
 use app\models\RequestSong;
+use app\models\Song;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\debug\models\timeline\Search;
 
 class SiteController extends Controller
 {
@@ -67,10 +70,58 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $songs = [];
         $this->layout = "index-main";
-        $genres = Genre::find()->joinWith('songs')->asArray()->all();
-        $genres = array_chunk($genres,2);
-//        echo '<pre>';print_r($genres); die;
+
+        $search = null;
+
+        $genres = Genre::find();
+        if (isset($_POST['search_query'])) {
+            $search = $_POST['search_query'];
+            $genres->joinWith('songs')
+                ->filterWhere(['like', 'songs.name', $search])
+                ->orFilterWhere(['like', 'genre.name', $search])
+                ->orFilterWhere(['like', 'songs.artist', $search]);
+        }
+
+        $genres =  $genres->orderBy('name')
+            ->asArray()
+            ->all();
+
+
+
+
+        if ($search != null) {
+            foreach ($genres as $genre) {
+                $sgs = Song::find();
+
+
+                if (strpos($genre['name'], $search) === false) {
+                    $sgs->filterWhere(['like', 'songs.name', $search])
+                        ->orFilterWhere(['like', 'songs.artist', $search]);
+                }
+
+                $sgs->andWhere(['genre_id' => $genre['id']])
+                    ->orderBy('name');
+                $data  = $sgs->asArray()->all();
+
+                $songs[$genre['id']] = $data;
+            }
+        } else {
+            foreach ($genres as $genre) {
+                $sgs = Song::find()
+                    ->where(['genre_id' => $genre['id']])
+                    ->orderBy('name')
+                    ->asArray()
+                    ->all();
+
+                $songs[$genre['id']] = $sgs;
+            }
+        }
+
+
+        if (count($genres) > 0)
+            $genres = array_chunk($genres, ceil(count($genres) / 2));
         $model = new RequestForm();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -79,51 +130,78 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->request->post()) {
-            $songs_ids = explode(',',$_POST['songs']);
+            $songs_ids = explode(',', $_POST['songs']);
             $total_runtime = $_POST['runtime'];
-            $request = new Request();
-            $request->full_name = $model->name;
-            $request->contact = $model->contact;
-            $request->email = $model->email;
-            $request->total_runtime = $total_runtime;
-            if($request->save()){
-                foreach ($songs_ids as $sid){
-                    $requestedSong = new RequestSong();
-                    $requestedSong->song_id = $sid;
-                    $requestedSong->request_id = $request->id;
-                    if(!$requestedSong->save()){
-                        $errors = implode(', ', $requestedSong->getErrorSummary(true));
+            $connection = \Yii::$app->db;
+            $transaction = $connection->beginTransaction();
+            try {
+                $request = new Request();
+                $request->full_name = $model->name;
+                $request->contact = $model->contact;
+                $request->email = $model->email;
+                $request->total_runtime = $total_runtime;
+                if ($request->save()) {
+                    foreach ($songs_ids as $sid) {
+                        $requestedSong = new RequestSong();
+                        $requestedSong->song_id = explode('-', $sid)[1];
+                        $requestedSong->request_id = $request->id;
+                        if (!$requestedSong->save()) {
+                            $transaction->rollBack();
+                            $errors = implode(', ', $requestedSong->getErrorSummary(true));
+                            Yii::$app->getSession()->setFlash('danger', [
+                                'type' => 'danger',
+                                'duration' => 6000,
+                                'icon' => 'glyphicon glyphicons-remove',
+                                'message' => $errors,
+                                'title' => 'Error',
+                                'positonY' => 'top',
+                                'positonX' => 'right'
+                            ]);
+                            return $this->redirect(Url::base());
+                        }
+                    }
+                    if (!$this->sendNotifications($request)) {
+                        $transaction->rollBack();
                         Yii::$app->getSession()->setFlash('danger', [
                             'type' => 'danger',
                             'duration' => 6000,
                             'icon' => 'glyphicon glyphicons-remove',
-                            'message' => $errors,
+                            'message' => "Unable to send notifications please try again.",
                             'title' => 'Error',
                             'positonY' => 'top',
                             'positonX' => 'right'
                         ]);
-                        return $this->redirect(['index']);
+                        return $this->redirect(Url::base());
+                    } else {
+                        Yii::$app->getSession()->setFlash('success', [
+                            'type' => 'success',
+                            'duration' => 6000,
+                            'icon' => 'glyphicon glyphicons-remove',
+                            'message' => "Em breve você receberá seu repertório por e-mail. Obrigado! =)",
+                            'title' => 'Enviado com sucesso!',
+                            'positonY' => 'top',
+                            'positonX' => 'right'
+                        ]);
+                        return $this->redirect(Url::base());
                     }
+                } else {
+                    $errors = implode(', ', $model->getErrorSummary(true));
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 6000,
+                        'icon' => 'glyphicon glyphicons-remove',
+                        'message' => $errors,
+                        'title' => 'Error',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
                 }
-                $this->sendNotifications($request);
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
-                    'duration' => 6000,
-                    'icon' => 'glyphicon glyphicons-remove',
-                    'message' => 'Request Submitted Successfully.',
-                    'title' => 'Success',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-                return $this->redirect(['index']);
-            }
-            else{
-                $errors = implode(', ', $model->getErrorSummary(true));
+            } catch (\Exception $e) {
                 Yii::$app->getSession()->setFlash('danger', [
                     'type' => 'danger',
                     'duration' => 6000,
                     'icon' => 'glyphicon glyphicons-remove',
-                    'message' => $errors,
+                    'message' => "Something went wrong while saving your record please try again.",
                     'title' => 'Error',
                     'positonY' => 'top',
                     'positonX' => 'right'
@@ -132,12 +210,17 @@ class SiteController extends Controller
         }
 
         $max_runtime = RepertoireRuntime::find()->one()->runtime;
-        return $this->render('index',
+
+        return $this->render(
+            'index',
             [
                 'model' => $model,
-                    'genres' => $genres,
-                    'runtime' => $max_runtime
-            ]);
+                'genres' => $genres,
+                'songs' => $songs,
+                'runtime' => $max_runtime,
+                'search' => $search
+            ]
+        );
     }
 
     /**
@@ -205,29 +288,41 @@ class SiteController extends Controller
 
     /**
      * @param Request $request
+     * @return bool
      */
-    public function sendNotifications($request){
+    public function sendNotifications($request)
+    {
         $model = User::find()->limit(1)->all();
         $model = $model[0];
 
-        Yii::$app->mailer
+        $check = Yii::$app->mailer
             ->compose(
                 ['html' => '@app/mail/notifyUser-html'],
                 ['model' => $request]
             )
             ->setFrom($model->email)
+            ->setCc($model->email)
             ->setTo($request->email)
-            ->setSubject('Repertoire Request Received')
+            ->setSubject('Repertório Banda Mega')
             ->send();
 
-        Yii::$app->mailer
-            ->compose(
-                ['html' => '@app/mail/notifyAdmin-html'],
-                ['model' => $request]
-            )
-            ->setFrom($model->email)
-            ->setTo($model->email)
-            ->setSubject('New Repertoire Request')
-            ->send();
+        return $check;
+    }
+
+    public function actionGetSongPlayer()
+    {
+        $id = $_GET['id'];
+        $model = Song::find()->where(['id' => $id])->asArray()->one();
+   
+        if($model['url'])
+            return $model['url'];
+        else
+            return $this->renderAjax(
+                'music-player-layout',
+                [
+                    'model' => $model,
+                    'id' => time()
+                ]
+            );
     }
 }

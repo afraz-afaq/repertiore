@@ -30,7 +30,7 @@ class RequestForm extends Model
             [['email','contact','name'],'required'],
             ['email','email'],
             ['name', 'string', 'max'=>100],
-            ['contact', 'number'],
+            ['contact', 'string'],
         ];
     }
 

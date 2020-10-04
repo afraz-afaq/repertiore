@@ -9,15 +9,27 @@
 ?>
 
 
-<h3>Hi <?=$model->full_name?>,</h3>
-<p>Your repertoire request has been received. We will contact you shortly
-through the provided contact information.</p>
-<p><span style="font-weight: bold">Contact: </span> <?=$model->contact?></p>
+<h3>Olá <?=$model->full_name?>,</h3>
+<p>Aqui está o repertório que você selecionou.</p>
+<p>Será um prazer tocarmos este repertório ao vivo no seu evento!</p>
+<p>Em breve entraremos em contato.</p>
+<p>Obrigado! =)</p>
+<p>Equipe Banda Mega</p>
+<p><span style="font-weight: bold">Telefone: </span> <?=$model->contact?></p>
 <p><span style="font-weight: bold">Email: </span> <?=$model->email?></p>
-<p><span style="font-weight: bold">Total Runtime: </span> <?=$model->total_runtime?></p>
-<h4>Songs:</h4>
-<ul>
+<p><span style="font-weight: bold">Tempo total: </span> <?=$model->total_runtime?></p>
+<h4>Repertório:</h4>
+<table style="border-collapse: collapse; width: 400px; text-align: center;" border="1"  >
+    <thead>
+        <th style="padding: 10px;">Músicas</th>
+        <th style="padding: 10px;">Gênero</th>
+    </thead>
+    <tbody>
     <?php foreach ($model->requestSongs as $requestSong): ?>
-        <li><?=$requestSong->song->name?></li>
+        <tr>
+        <td style="padding: 10px;"><?=$requestSong->song->name?></td>
+        <td style="padding: 10px;"><?=$requestSong->song->genre->name?></td>
+        </tr>
     <?php endforeach;?>
-</ul>
+    </tbody>
+</table>

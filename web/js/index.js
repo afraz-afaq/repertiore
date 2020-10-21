@@ -9,12 +9,12 @@ $(function () {
     var check = $(collapse_id).attr("aria-expanded");
     if (check == "true") {
       $(this)
-        .children()
+        .find('img')
         .first()
         .attr("src", home_url + "web/images/close.png");
     } else if (check == "false") {
       $(this)
-        .children()
+        .find('img')
         .first()
         .attr("src", home_url + "web/images/ex.png");
     }
@@ -130,6 +130,7 @@ $("#request-form")
       event.preventDefault();
       $(".submit-btn").attr("disabled", false);
     }
+    clearInterval(timer);
   });
 
 function checkIfSongIsAvailable(songId) {

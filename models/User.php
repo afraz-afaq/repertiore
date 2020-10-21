@@ -14,14 +14,22 @@ use yii\web\IdentityInterface;
  * @property int $id
  * @property string $name
  * @property string $username
+ * @property int $type
+ * @property int $status
  * @property string $email
  * @property string $password
  * @property int $created_at
  * @property int $updated_at
+ * @property UserTimeSpent $userTimeSpent
+ * @property UserLoginHistory[] $userLoginHistory
  */
 
 class User extends ActiveRecord implements IdentityInterface
 {
+    const ACTIVE = 7;
+    const INACTIVE = 8;
+
+    const APP_USER = 10;
 
     /**
      * {@inheritdoc}
@@ -38,10 +46,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['name', 'username', 'email', 'password'], 'required'],
-            [['created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at','status','type'], 'integer'],
             [['name', 'username'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 150],
-            [['email'], 'string', 'max' => 100],
+            [['email'], 'email'],
+            [['email'], 'unique']
         ];
     }
 
@@ -113,6 +122,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'ID',
             'name' => 'Name',
             'username' => 'Username',
+            'status' => 'Status',
             'email' => 'Email',
             'password' => 'Password',
             'created_at' => 'Created At',
@@ -167,5 +177,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         // TODO: Implement validateAuthKey() method.
+    }
+
+    public function getUserLoginHistory(){
+        return $this->hasMany(UserLoginHistory::class,['user_id' => 'id']);
+    }
+
+    public function getUserTimeSpent(){
+        return $this->hasOne(UserTimeSpent::class,['user_id' => 'id']);
     }
 }

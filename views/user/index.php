@@ -1,9 +1,11 @@
 <?php
 
+use app\models\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Users';
@@ -17,23 +19,47 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?php Pjax::begin(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'name',
-            'username',
+            [
+                'filter' => [User::ACTIVE => 'Active', User::INACTIVE => 'Inactive'],
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($model, $key, $index, $column){
+                    return $model->status == User::ACTIVE ? "<span style='color:green;'>ACTIVE</span>" : "<span style='color:red;'>INACTIVE</span>";
+                }
+            ],
             'email:email',
-            'password',
-            //'created_at',
-            //'updated_at',
+            [
+                'format' => 'raw',
+                'label' => 'Login Count',
+                'value' => function($model, $key, $index, $column){
+                    $count = $model->getUserLoginHistory()->count();
+                    return Html::a($count,['user-login-history/index?id='.$model->id]);
+                }
+            ],
+            [
+                'format' => 'raw',
+                'label' => 'Time Spent',
+                'value' => function($model, $key, $index, $column){
+                    $spent = $model->userTimeSpent->time_spent;
+                    return round($spent/(60),2)." Min(s)";
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
+    <?php Pjax::end(); ?>
 
 </div>

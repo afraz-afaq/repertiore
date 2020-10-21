@@ -2,6 +2,8 @@
 
 namespace app\config;
 
+use app\models\SystemConfig;
+
 class Helper
 {
 
@@ -38,5 +40,13 @@ class Helper
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+    }
+
+    public static function isUserLoginEnabled(){
+        $user_login_setting = SystemConfig::find()
+        ->where(['name' => 'USER_LOGIN'])
+        ->one();
+
+        return $user_login_setting->is_enabled;
     }
 }

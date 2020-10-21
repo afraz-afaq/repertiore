@@ -21,16 +21,29 @@ $count = 0;
         </div>
         <div class="row">
             <div class="col-md-4"><img class="monteseu-image" src="<?= Yii::$app->homeUrl ?>web/images/monteseu.png" alt="" width="300"></div>
+
+            <?php if (Yii::$app->session->has('user_id')) : ?>
+                <div class="col-md-8 text-right" style="margin-left: -50px;">
+                    <?= Html::a('Logout', ['user-logout'], [
+                        'class' => 'btn btn-default',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to logout?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
 
-            <div class="col-md-8" style="margin-right:6px;">
+            <div class="col-md-8">
                 <div class="my-songs-header mobile-songs-header" style="display:none; cursor:pointer;">
                     <p style="font-size: 17px; font-weight: bold; font-family: Calibri;">Seu Repertório <span class="repertoireRuntime" style="margin-left: 11px; font-size: 12px; font-weight: bold; font-family: Calibri;">Tempo total: 00:00 minutos</span>
                     </p>
                 </div>
             </div>
         </div>
+
     </div>
     <div class="content">
 
@@ -62,15 +75,17 @@ $count = 0;
                 <?php if (count($genres) > 0) : ?>
                     <div class="row panel-group">
                         <?php foreach ($genres[0] as $genre) : ?>
-                            <div class="col-md-12 col-xs-12">
-                                <a class="onCollapse" data-toggle="collapse" href="#collapse<?= $genre['id'] ?>">
-                                    <img class="list-img expand" src="<?= Yii::$app->homeUrl ?>web/images/ex.png" alt="">
-                                </a>
-                                <div class="genre">
-                                    <div class="genre-border-1">
-                                        <div style="font-size: 17px; margin-top: 6px;"><?= $genre['name'] ?></div>
-                                    </div>
-                                    <div class="genre-border-2">
+                            <div style="cursor:pointer;" class="onCollapse" data-toggle="collapse" href="#collapse<?= $genre['id'] ?>">
+                                <div class="col-md-12 col-xs-12">
+                                    <a>
+                                        <img class="list-img expand" src="<?= Yii::$app->homeUrl ?>web/images/ex.png" alt="">
+                                    </a>
+                                    <div class="genre">
+                                        <div class="genre-border-1">
+                                            <div style="font-size: 17px; margin-top: 6px;"><?= $genre['name'] ?></div>
+                                        </div>
+                                        <div class="genre-border-2">
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="collapse<?= $genre['id'] ?>" class="row expanded-container collapse">
@@ -78,7 +93,7 @@ $count = 0;
                                         <?php if (count($songs[$genre['id']]) > 0) : ?>
                                             <?php foreach ($songs[$genre['id']] as $song) : ?>
                                                 <div style="border: 3px solid white; margin-bottom: 6px;">
-                                                    <div style="border-bottom: 3px solid;"><span class="add-to" onclick='addToPlaylist("<?= $song['id'] ?>","<?= $song['duration'] ?>")'>+ADICIONAR AO REPERTÓRIO</span></div>
+                                                    <div><span class="add-to" onclick='addToPlaylist("<?= $song['id'] ?>","<?= $song['duration'] ?>")'>+ADICIONAR AO REPERTÓRIO</span></div>
                                                     <div id="add-<?= $song['id'] ?>">
                                                         <?php if ($song['url'] == null) : ?>
                                                             <?= $this->render('music-player-layout.php', ['model' => $song]); ?>
@@ -107,15 +122,17 @@ $count = 0;
                 <?php if (count($genres) > 0 && isset($genres[1])) : ?>
                     <div class="row panel-group">
                         <?php foreach ($genres[1] as $genre) : ?>
-                            <div class="col-md-12 col-xs-12">
-                                <a class="onCollapse" data-toggle="collapse" href="#collapse<?= $genre['id'] ?>">
-                                    <img class="list-img expand" src="<?= Yii::$app->homeUrl ?>web/images/ex.png" alt="">
-                                </a>
-                                <div class="genre">
-                                    <div class="genre-border-1">
-                                        <div style="font-size: 17px;margin-top: 6px;"><?= $genre['name'] ?></div>
-                                    </div>
-                                    <div class="genre-border-2">
+                            <div style="cursor:pointer;" class="onCollapse" data-toggle="collapse" href="#collapse<?= $genre['id'] ?>">
+                                <div class="col-md-12 col-xs-12">
+                                    <a class="onCollapse">
+                                        <img class="list-img expand" src="<?= Yii::$app->homeUrl ?>web/images/ex.png" alt="">
+                                    </a>
+                                    <div class="genre">
+                                        <div class="genre-border-1">
+                                            <div style="font-size: 17px;margin-top: 6px;"><?= $genre['name'] ?></div>
+                                        </div>
+                                        <div class="genre-border-2">
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="collapse<?= $genre['id'] ?>" class="row expanded-container collapse">
@@ -123,7 +140,7 @@ $count = 0;
                                         <?php if (count($songs[$genre['id']]) > 0) : ?>
                                             <?php foreach ($songs[$genre['id']] as $song) : ?>
                                                 <div style="border: 3px solid white; margin-bottom: 6px;">
-                                                <div style="border-bottom: 3px solid;"><span class="add-to" onclick='addToPlaylist("<?= $song['id'] ?>","<?= $song['duration'] ?>")'>+ADICIONAR AO REPERTÓRIO</span></div>
+                                                    <div><span class="add-to" onclick='addToPlaylist("<?= $song['id'] ?>","<?= $song['duration'] ?>")'>+ADICIONAR AO REPERTÓRIO</span></div>
                                                     <div id="add-<?= $song['id'] ?>">
                                                         <?php if ($song['url'] == null) : ?>
                                                             <?= $this->render('music-player-layout.php', ['model' => $song]); ?>
@@ -203,11 +220,11 @@ $count = 0;
         </div>
         <div class="row">
             <div class="col-md-8 col-xs-12 text-center">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://bandamega.com.br/app/" target="_blank">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://bandamega.com.br/" target="_blank">
                     <img src="<?= Yii::$app->homeUrl ?>web/images/fb.png" width="55">
                 </a>
 
-                <a href="https://web.whatsapp.com/send?text=https://bandamega.com.br/app/" data-action="share/whatsapp/share" target="_blank">
+                <a href="https://web.whatsapp.com/send?text=https://bandamega.com.br/" data-action="share/whatsapp/share" target="_blank">
                     <img src="<?= Yii::$app->homeUrl ?>web/images/whatsapp.png" width="50">
                 </a>
             </div>
@@ -224,5 +241,7 @@ $count = 0;
     <?php $this->registerJsFile(Yii::$app->homeUrl . 'web/js/notify.min.js', ['depends' => ['yii\web\JqueryAsset']]) ?>
     <?php
     $this->registerJs("var max_runtime = " . $runtime . ";", \yii\web\View::POS_BEGIN); ?>
+    <?php $this->registerJs("var timer;", \yii\web\View::POS_BEGIN); ?>
     <?php $this->registerJs("var home_url = " . Yii::$app->homeUrl . ";", \yii\web\View::POS_BEGIN); ?>
     <?php $this->registerJsFile(Yii::$app->homeUrl . 'web/js/index.js?version=1.2', ['depends' => ['yii\web\JqueryAsset']]) ?>
+    <?php $this->registerJsFile(Yii::$app->homeUrl . 'web/js/timesave.js?version=1.2', ['depends' => ['yii\web\JqueryAsset']]) ?>

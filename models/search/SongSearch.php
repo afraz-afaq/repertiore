@@ -71,6 +71,8 @@ class SongSearch extends Song
             ->andFilterWhere(['like', 'duration', $this->duration])
             ->andFilterWhere(['like', 'genre.name', $this->genre]);
 
+            $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }

@@ -22,10 +22,10 @@ $id = isset($id) ? $id : $model['id'];
         <p><span style="font-weight: bold"><?= $model['name'] ?></span> <small><br></small><?= $model['artist'] ? $model['artist'] : "
 não disponível" ?></p>
         <span class="song-share" style="margin-left:96px;">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bandamega.com.br/app/" class="social-btn-<?= $id ?>" style="visibility:hidden;" target="_blank">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bandamega.com.br/" class="social-btn-<?= $id ?>" style="visibility:hidden;" target="_blank">
                 <img src="<?= Yii::$app->homeUrl ?>web/images/fb.png" width="23">
             </a>
-            <a href="https://web.whatsapp.com/send?text=https://bandamega.com.br/app/" class="social-btn-<?= $id ?>" style="visibility:hidden;" data-action="share/whatsapp/share" target="_blank">
+            <a href="https://web.whatsapp.com/send?text=https://bandamega.com.br/" class="social-btn-<?= $id ?>" style="visibility:hidden;" data-action="share/whatsapp/share" target="_blank">
                 <img src="<?= Yii::$app->homeUrl ?>web/images/whatsapp.png" width="20">
             </a>
             <img src="<?= Yii::$app->homeUrl ?>web/images/share.png" width="15px" onclick="toggleSocialBtns('social-btn-<?= $id ?>')" style="cursor:pointer" />

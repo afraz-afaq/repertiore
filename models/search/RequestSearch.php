@@ -68,6 +68,8 @@ class RequestSearch extends Request
             ->andFilterWhere(['like', 'contact', $this->contact])
             ->andFilterWhere(['like', 'total_runtime', $this->total_runtime]);
 
+            $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }

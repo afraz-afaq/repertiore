@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\config\Helper;
+use app\models\forms\UserLoginForm;
 use app\models\forms\RequestForm;
 use app\models\Genre;
 use app\models\RepertoireRuntime;
@@ -17,6 +19,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\UserLoginHistory;
+use Exception;
 use yii\debug\models\timeline\Search;
 
 class SiteController extends Controller
@@ -42,6 +46,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'user-logout' => ['post'],
                 ],
             ],
         ];
@@ -70,6 +75,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Helper::isUserLoginEnabled() == 1) {
+
+            $user_id = Yii::$app->session->get('user_id');
+            if (!isset($user_id)) {
+                return $this->redirect(['user-login']);
+            }
+        }
         $songs = [];
         $this->layout = "index-main";
 
@@ -313,8 +325,8 @@ class SiteController extends Controller
     {
         $id = $_GET['id'];
         $model = Song::find()->where(['id' => $id])->asArray()->one();
-   
-        if($model['url'])
+
+        if ($model['url'])
             return $model['url'];
         else
             return $this->renderAjax(
@@ -324,5 +336,91 @@ class SiteController extends Controller
                     'id' => time()
                 ]
             );
+    }
+
+    public function actionUserLogin()
+    {
+        if (Helper::isUserLoginEnabled() == 0) 
+                return $this->redirect(['index']);
+
+        $this->layout = "user-login-main";
+        $model = new UserLoginForm();
+        $user_id = Yii::$app->session->get('user_id');
+        if (isset($user_id)) {
+            return $this->redirect(['index']);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $response_user = Yii::$app->request->post()['g-recaptcha-response'];
+
+            $post_data = http_build_query(
+                array(
+                    'secret' => '6Lc1MtUZAAAAAO-i_rEiHPmMUquLf0FTKF9DNJIy',
+                    'response' => $response_user,
+                    'remoteip' => $_SERVER['REMOTE_ADDR']
+                )
+            );
+            $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $post_data
+            ));
+            $context  = stream_context_create($opts);
+            $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+            $result = json_decode($response);
+            if (!$result->success) {
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 6000,
+                    'icon' => 'glyphicon glyphicons-remove',
+                    'message' => "Recaptcha Failed.",
+                    'title' => 'Error',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+            } else {
+
+                $user = User::find()
+                    ->where(['email' => $model->email])
+                    ->andWhere(['password' => $model->password])
+                    ->one();
+
+                if ($user) {
+                    if ($user->status == User::ACTIVE) {
+                        Yii::$app->session->set('user_id', $user->id);
+                        $loginHistory = new UserLoginHistory();
+                        $loginHistory->user_id = $user->id;
+                        $loginHistory->date = date('Y-m-d');
+                        $loginHistory->ip = $_SERVER['REMOTE_ADDR'];
+                        $loginHistory->save();
+                        return $this->redirect(['index']);
+                    } else
+                        $model->addError('email', "Can't Login. Status Inactive.");
+                } else {
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 6000,
+                        'icon' => 'glyphicon glyphicons-remove',
+                        'message' => "Email or password is incorrect.",
+                        'title' => 'Login Unsuccessful',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+                    $model->addError('email', "Email or password is incorrect.");
+                }
+            }
+        }
+
+        return $this->render('user-login', [
+            'model' => $model
+        ]);
+    }
+
+    public function actionUserLogout()
+    {
+        Yii::$app->session->remove('user_id');
+        return $this->redirect('user-login');
     }
 }

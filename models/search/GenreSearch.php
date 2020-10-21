@@ -65,6 +65,8 @@ class GenreSearch extends Genre
 
         $query->andFilterWhere(['like', 'name', $this->name]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }

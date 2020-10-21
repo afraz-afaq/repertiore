@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Songs', 'url' => ['/song']],
             ['label' => 'Runtime', 'url' => ['/repertoire-runtime']],
             ['label' => 'Requests', 'url' => ['/request']],
+            ['label' => 'Users', 'url' => ['/user']],
             ['label' => 'Settings', 'url' => ['/user/settings']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
